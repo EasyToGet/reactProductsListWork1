@@ -1,6 +1,6 @@
 function App() {
   const [tempProduct, setTempProduct] = React.useState(null);
-  const products = [
+  const [products, setProduct] = React.useState([
     {
       category: "甜甜圈",
       content: "尺寸：14x14cm",
@@ -51,7 +51,7 @@ function App() {
         "https://images.unsplash.com/photo-1540337706094-da10342c93d8?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDR8fGNha2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
       ]
     }
-  ];
+  ]);
 
   return (
     <div className="container">
@@ -66,6 +66,7 @@ function App() {
                 <th scope="col">售價</th>
                 <th scope="col">是否啟用</th>
                 <th scope="col">查看細節</th>
+                <th scope="col">轉換啟用</th>
               </tr>
             </thead>
             <tbody>
@@ -75,7 +76,8 @@ function App() {
                 <td>{product.origin_price}</td>
                 <td>{product.price}</td>
                 <td>{product.is_enabled ? "啟用" : "未啟用"}</td>
-                <td><button type="button"  onClick={() =>{setTempProduct(product);}} className="btn btn-primary">查看細節</button></td>
+                <td><button type="button"  onClick={() =>{setTempProduct(product);}} className={`btn btn-primary ${product.is_enabled ? "" : "disabled"}`}>查看細節</button></td>
+                <td><button type="button" onClick={() =>{const updateEnabled = products.map(item => item.id === product.id ? {...item, is_enabled: !item.is_enabled} : item); setProduct(updateEnabled)}} className="btn btn-primary">轉換啟用</button></td>
               </tr>
               ))}
             </tbody>
